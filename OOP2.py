@@ -129,16 +129,30 @@ class Population:
         self.preys |= Population._reproduce(self.preys)
         self.predators |= Population._reproduce(self.predators)
 
+    def hunt(self):
+        preys_alive = [creature for creature in self.preys if creature.alive]
+        predators_alive = [creature for creature in self.predators if creature.alive]
+
+        sample_size = min(predators_alive, preys_alive)
+        preys_sample = random.sample( len(preys_alive) , len(sample_size))
+
+        for prey, predator in zip(preys_sample, predators_alive):
+            predator.hunt(prey)
+
+        print()
     def plot(self):
         plt.plot(self.history)
         plt.title("Plot of population")
         plt.show()
 
     def plot_attribute(self, attribute='p_death'):
-        values = [getattr(creature, attribute) for creature in self.specimen]
-        plt.hist(values)
-        plt.show()
+        pass
+        # values = [getattr(creature, attribute) for creature in self.specimen]
+        # plt.hist(values)
+        # plt.show()
 
-
-pred1 = Predator()
-victim1 = Prey()
+#dni = 50
+# population = Population()
+# for i in range(dni):
+#     print(population.count_alive())
+#     population.perform_natural_selection()
