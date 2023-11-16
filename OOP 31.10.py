@@ -19,8 +19,24 @@ import matplotlib.pyplot as plt
 
 # %%
 SIGMA = 0.02
+
+class Probability():
+    
+    def __set_name__(self, owner, name): #name to pdeath albo preproduction
+        self.public_name = name
+        self.private = "_" + name
+        pass
+        
+    def __get__(self, obj, objtype=None):
+        return getattr(obj, self.private_name)
+    
+    def __set__(self, obj, value):
+        setattr(obj, self.private_name, min(1.0, max(0.0,value)))
+    
 class Creature:
     alive = True
+    p_death = Probability()
+    p_reproduction = Probability()
     
     def __init__(self, p_death=0.2, p_reproduction=0.2) :
         self.p_death = p_death
@@ -34,16 +50,27 @@ class Creature:
         if random.random() <= self.p_reproduction:
             return Creature(self.p_death + random.normalvariate(sigma=SIGMA ), self.p_reproduction + random.normalvariate(sigma= SIGMA))
     
-    @property
-    def p_death(self):
-        return self._p_death
+#     @property
+#     def p_death(self):
+#         return self._p_death
     
-    @p_death.setter
-    def p_death(self,value):
-        if value < 0:
-            self._p_death = 0.0
-        else:
-            self._p_death = value
+#     @p_death.setter
+#     def p_death(self,value):
+#         if value < 0:
+#             self._p_death = 0.0
+#         else:
+#             self._p_death = value
+            
+#     @property
+#     def p_reproduction(self):
+#         return self._p_reproduction
+    
+#     @p_reproduction.setter
+#     def p_reproduction(self,value):
+#         if value < 0:
+#             self._p_reproduction = 0.0
+#         else:
+#             self._p_reproduction = value
     
     
 class Population:
@@ -107,3 +134,32 @@ stwór.p_death
 stwór = Creature()
 stwór._p_death = -1
 stwór.p_death
+
+
+# %%
+class A: 
+    def __init__ (self,x=3):
+        self.x = x
+        
+    @property
+    def x(self):
+        print('inside getter')
+        return self._x
+    
+    @x.setter
+    
+    def x(self, value):
+        print("inside setter")
+        self._x = value
+    
+    
+
+# %%
+obj= A(20)
+
+# %%
+obj2 = A()
+obj2.x
+
+# %%
+obj.x
