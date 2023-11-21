@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from collections import namedtuple
 
 SIGMA = 0.02
-P_DEATH_IF_HUNGRY = 0.5
+P_DEATH_IF_HUNGRY = 0.4
 P_DEATH_IF_FED = 0.05
 
 State = namedtuple('State', ['preys', 'predators'])
@@ -57,7 +57,7 @@ class Creature:
 class Prey(Creature):
     p_escape = Probability()
 
-    def __init__(self, p_death=0.2, p_reproduce=0.2, p_escape=0.8):
+    def __init__(self, p_death=0.2, p_reproduce=0.26, p_escape=0.1):
         super().__init__(p_death, p_reproduce)
         self.p_escape = p_escape
 
@@ -70,7 +70,7 @@ class Prey(Creature):
 
 class Predator(Creature):
 
-    def __init__(self, p_death=P_DEATH_IF_HUNGRY, p_reproduce=0.2):
+    def __init__(self, p_death=P_DEATH_IF_HUNGRY, p_reproduce=0.6666):
         super().__init__(p_death = p_death, p_reproduce = p_reproduce)
 
 
@@ -141,18 +141,18 @@ class Population:
 
         print()
     def plot(self):
-        plt.plot(self.history)
+        plt.plot([count.preys for count in self.history])
+        plt.plot([count.predators for count in self.history])
+        plt.legend(["Prey", "Predators"])
         plt.title("Plot of population")
         plt.show()
 
-    def plot_attribute(self, attribute='p_death'):
-        pass
+    #def plot_attribute(self, attribute='p_death'):
+        #pass
         # values = [getattr(creature, attribute) for creature in self.specimen]
         # plt.hist(values)
         # plt.show()
 
-#dni = 50
-# population = Population()
-# for i in range(dni):
-#     print(population.count_alive())
-#     population.perform_natural_selection()
+population = Population(preys=100,predators= 100)
+population.simulate(200)
+population.plot()
