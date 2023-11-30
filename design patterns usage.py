@@ -70,6 +70,17 @@ class WAVAudioExporter(AudioExporter):
     def do_export(self, folder: pathlib.Path):
         print(f"exporting audio in WAV format to {folder} ")
 
+
+class ExporterFactory(ABC):
+
+    @abstractmethod
+    def get_video_exporter(self) -> VideoExporter:
+        pass
+
+    @abstractmethod
+    def get_audio_exporter(self) -> AudioExporter:
+        pass
+
 # FILE= 'hello.txt'
 #
 # path= pathlib.Path("..")
