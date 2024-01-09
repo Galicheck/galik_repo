@@ -62,9 +62,45 @@ class DictHandler(ContentHandler):
     def current_element(self):
         return self.element_stack[-1]
 
+class FullNameHandler(ContentHandler):
+    def __init__(self):
+        super().__init__()
+        self.found_fullname = False
+        self.fullname = " "
+
+    def startElement(self, name, attrs):
+        """Run when opening tag is element"""
+        if name == 'fullName':
+            self.found_fullname = True
+
+    def endElement(self, name):
+        if self.found_fullname:
+            print("Value of fullName:", self.current_value)
+            self.fullname = self.current_value
+            # Interrupt parsing
+            raise SAXException("Parsing interrupted after finding fullName")
+
+    def characters(self, content):
+        """Run when string is found"""
+        self.current_value = content
+
+
+
+
+'''
 handler = DictHandler()
+handler = FullNameHandler()
 parse("./P01024.xml", handler)
 root = handler.current_element
-print(root)
+'''
 
-root['children',     ]
+filename = "./P01024.xml"
+
+try:
+    parse(filename, FullNameHandler())
+except SAXException as e:
+    if str(e) != "Parsing interrupted after finding fullName":
+        # Handle other exceptions
+        raise
+
+
