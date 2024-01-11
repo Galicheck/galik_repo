@@ -1,0 +1,5 @@
+outs:
+- md5: c1c000e6866b41bef4926cb53b206b7c
+  size: 6942055
+  hash: md5
+  path: accelerometer.csv
