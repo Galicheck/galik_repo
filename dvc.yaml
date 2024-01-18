@@ -1,6 +1,6 @@
 stages:
   windower:
-    cmd: python_sliding_windows.py
+    cmd: python sliding_windows.py
     deps:
       - sliding_windows.py
       - config.py
