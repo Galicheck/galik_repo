@@ -1,0 +1,12 @@
+stages:
+  windower:
+    cmd: python_sliding_windows.py
+    deps:
+      - sliding_windows.py
+      - config.py
+      - data/accelerometer.csv
+    params:
+      - windower.windows_size
+      - windower.step
+    outs:
+      - data/windows.npy
