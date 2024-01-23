@@ -10,3 +10,15 @@ stages:
       - windower.step
     outs:
       - data/windows.npy
+  reducer:
+    cmd: python dimension_reduction.py
+    deps:
+      - dimension_reduction.py
+      - config.py
+      - data/windows.npy
+    params:
+      - reducer.random_state
+    outs:
+      - plots/tsne.png
+plots:
+  - plots/tsne.png
