@@ -1,0 +1,26 @@
+schema: '2.0'
+stages:
+  windower:
+    cmd: python sliding_windows.py
+    deps:
+    - path: config.py
+      hash: md5
+      md5: 3341208550cda136d9fbf5d1d39a1bf1
+      size: 75
+    - path: data/accelerometer.csv
+      hash: md5
+      md5: 969a29042fc2eab1ac1f7a4c6fca175f
+      size: 6313254
+    - path: sliding_windows.py
+      hash: md5
+      md5: 3ae45e5f9a62d913831395ce019dd89e
+      size: 575
+    params:
+      params.yaml:
+        windower.step: 50
+        windower.windows_size: 100
+    outs:
+    - path: data/windows.npy
+      hash: md5
+      md5: 50354d7624748471de7eb57f71ba97d4
+      size: 20120128
