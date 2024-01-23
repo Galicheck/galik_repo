@@ -1,3 +1,5 @@
 windower:
   windows_size: 100
   step: 50
+reducer:
+  random_state: 42
